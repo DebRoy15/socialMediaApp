@@ -3,12 +3,13 @@ import ReactDOM from "react-dom";
 import "./app/layout/style.css";
 import App from "./app/layout/App";
 import reportWebVitals from "./reportWebVitals";
+import { store, StoreContext } from "./app/store/store";
 //import "semantic-ui-css/semantic.min.css";
 
 ReactDOM.render(
-  <React.StrictMode>
+  <StoreContext.Provider value={store}>
     <App />
-  </React.StrictMode>,
+  </StoreContext.Provider>,
   document.getElementById("root")
 );
 
