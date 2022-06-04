@@ -27,6 +27,14 @@ namespace API.Controllers
                 _userManager = userManager;
                 _signInManager = signInManager;
         }
+        
+        [Authorize]
+        [HttpGet]
+        public async Task<ActionResult<UserDto>> GetCurrentUser(){
+            var user = await _userManager.FindByEmailAsync(User.FindFirstValue(ClaimTypes.Email));
+            
+            return CreateUserObject(user);
+        }
 
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto ){
@@ -47,12 +55,14 @@ namespace API.Controllers
         {
             if(await _userManager.Users.AnyAsync( x => x.Email == registerDto.Email))
             {
-                return BadRequest("Email taken");
+                ModelState.AddModelError("email", "Email taken");
+                return ValidationProblem();
             }
 
             if(await _userManager.Users.AnyAsync( x => x.UserName == registerDto.UserName))
             {
-                return BadRequest("Username taken");
+                ModelState.AddModelError("username", "Username taken");
+                return ValidationProblem();
             }
 
             var user = new AppUser
@@ -68,14 +78,6 @@ namespace API.Controllers
             return CreateUserObject(user);
 
             return BadRequest("Problem registering user");
-        }
-
-        [Authorize]
-        [HttpGet]
-        public async Task<ActionResult<UserDto>> GetCurrentUser(){
-            var user = await _userManager.FindByEmailAsync(User.FindFirstValue(ClaimTypes.Email));
-            
-            return CreateUserObject(user);
         }
 
         private UserDto CreateUserObject(AppUser user)
