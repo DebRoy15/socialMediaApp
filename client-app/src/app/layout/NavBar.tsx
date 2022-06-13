@@ -30,7 +30,7 @@ export default observer(function NavBar() {
             content="Create Activity"
           />
         </Menu.Item>
-        <MenuItem position="right">
+        <MenuItem position="right"> 
           <Image
             src={user?.image || "/assets/user.png"}
             avatar
@@ -40,7 +40,7 @@ export default observer(function NavBar() {
             <Dropdown.Menu>
               <Dropdown.Item
                 as={Link}
-                to={`/profile/${user?.username}`}
+                to={`/profiles/${user?.username}`}
                 text="My Profile"
                 icon="user"
               />

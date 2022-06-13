@@ -14,6 +14,7 @@ import { useStore } from "../store/store";
 import { useEffect } from "react";
 import LoadingComponent from "./loadingComponent";
 import ModalContainer from "../modals/ModalContainer";
+import ProfilePage from "../../features/profiles/ProfilePage";
 
 function App() {
   const location = useLocation();
@@ -55,6 +56,7 @@ function App() {
                   exact
                   component={ActivityForm}
                 />
+                <Route path="/profiles/:username" component={ProfilePage} />
                 <Route path="/errors" component={TestErrors} />
                 <Route path="/server-error" component={ServerError} />
                 <Route component={NotFound} />
