@@ -17,8 +17,10 @@ namespace API.Extensions
     public static class IdentityServiceExtensions
     {
         public static IServiceCollection AddIdentityServices(
-        this IServiceCollection services, IConfiguration config){
-            services.AddIdentityCore<AppUser>( opt =>{
+        this IServiceCollection services, IConfiguration config)
+        {
+            services.AddIdentityCore<AppUser>(opt =>
+            {
                 opt.Password.RequireNonAlphanumeric = false;
             })
             .AddEntityFrameworkStores<DataContext>()
@@ -35,9 +37,22 @@ namespace API.Extensions
                     ValidateIssuer = false,
                     ValidateAudience = false
                 };
+                opt.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        var accessToken = context.Request.Query["access_token"];
+                        var path = context.HttpContext.Request.Path;
+                        if (!string.IsNullOrEmpty(accessToken) && (path.StartsWithSegments("/chat")))
+                        {
+                            context.Token = accessToken;
+                        }
+                        return Task.CompletedTask;
+                    }
+                };
             });
 
-            services.AddAuthorization(opt => 
+            services.AddAuthorization(opt =>
             {
                 opt.AddPolicy("IsActivityHost", policy =>
                 {

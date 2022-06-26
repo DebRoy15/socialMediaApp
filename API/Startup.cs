@@ -21,6 +21,7 @@ using FluentValidation.AspNetCore;
 using API.Middleware;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using API.SignalR;
 
 namespace API
 {
@@ -40,7 +41,7 @@ namespace API
                 var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
                 opt.Filters.Add(new AuthorizeFilter(policy));
             });
-            services.AddControllers().AddFluentValidation( config =>
+            services.AddControllers().AddFluentValidation(config =>
             {
                 config.RegisterValidatorsFromAssemblyContaining<Create>();
             });
@@ -61,7 +62,7 @@ namespace API
             //app.UseHttpsRedirection();
 
             app.UseRouting();
-            
+
             app.UseCors("CorsPolicy");
 
             app.UseAuthentication();
@@ -71,6 +72,7 @@ namespace API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<ChatHub>("/chat");
             });
         }
     }
