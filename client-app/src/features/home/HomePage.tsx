@@ -18,11 +18,11 @@ export default observer(function HomePage() {
             alt="logo"
             style={{ marginBottom: 12 }}
           />
-          Reactivities
+          Socially Connect
         </Header>
         {userStore.isLoggedIn ? (
           <>
-            <Header as="h2" inverted content="Welcome to Reactivities" />
+            <Header as="h2" inverted content="Welcome to Socially Connect" />
             <Button as={Link} to="/activities" size="huge" inverted>
               Go to Activities!
             </Button>
