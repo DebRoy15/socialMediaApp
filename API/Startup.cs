@@ -62,12 +62,11 @@ namespace API
                 .BlockAllMixedContent()
                 .StyleSources(s => s.Self().CustomSources(
                     "https://fonts.googleapis.com",
-                    "sha256-/epqQuRElKW1Z83z1Sg8Bs2MKi99Nrq41Z3fnS2Nrgk=",
-                    "sha256-2aahydUs+he2AO0g7YZuG67RGvfE9VXGbycVgIwMnBI=",
-                    "sha256-+oGcdj5BhO6SoiIGYIkPOMYi7d2h2Pp/bkJLBfYL+kk="
+                    "https://cdn.jsdelivr.net"
                 ))
                 .FontSources(s => s.Self().CustomSources(
-                    "https://fonts.gstatic.com", "data:"
+                    "https://fonts.gstatic.com", "data:",
+                    "https://cdn.jsdelivr.net"
                 ))
                 .FormActions(s => s.Self())
                 .FrameAncestors(s => s.Self())
@@ -79,9 +78,7 @@ namespace API
                     ))
                 .ScriptSources(s => s.Self()
                     .CustomSources(
-                        "sha256-HIgflxNtM43xg36bBIUoPTUuo+CXZ319LsTVRtsZ/VU=",
-                        "https://connect.facebook.net",
-                        "sha256-3x3EykMfFJtFd84iFKuZG0MoGAo5XdRfl3rq3r//ydA="
+                        "https://cdn.jsdelivr.net"
                     ))
             );
 
