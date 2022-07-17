@@ -74,6 +74,7 @@ namespace API
                     "https://res.cloudinary.com",
                     "https://www.facebook.com",
                     "https://platform-lookaside.fbsbx.com",
+                    "blob:",
                     "data:"
                     ))
                 .ScriptSources(s => s.Self()
